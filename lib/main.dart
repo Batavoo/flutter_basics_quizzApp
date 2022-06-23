@@ -82,7 +82,7 @@ class _MyAppState extends State<MyApp> {
                 questions: _questions,
                 answerQuestion: _answerQuestion,
               )
-            : Result(),
+            : Result(_totalScore),
       ),
     );
   }
