@@ -23,8 +23,9 @@ class Quiz extends StatelessWidget {
         Question(
           questions[questionIndex]["questionText"],
         ),
-        ...(questions[questionIndex]["answers"] as List<String>).map((answer) {
-          return Answer(answerQuestion, answer);
+        ...(questions[questionIndex]["answers"] as List<Map<String, Object>>)
+            .map((answer) {
+          return Answer(() => answerQuestion(answer["score"]), answer["text"]);
         }).toList()
         // O .map vai passar pela minha lista de Strings "answers" e, pra cada String
         // Ele vai criar um Widget "Answer" usando a string da outra lista
