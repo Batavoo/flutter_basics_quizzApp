@@ -35,12 +35,16 @@ class _MyAppState extends State<MyApp> {
   ];
 
   void _answerQuestion() {
-    if (_questionIndex < questions.length) {}
-
     setState(() {
       _questionIndex++;
     });
     print(_questionIndex);
+
+    if (_questionIndex < questions.length) {
+      print("we have more questions!");
+    } else {
+      print("no more questions!");
+    }
   }
 
   @override
@@ -50,22 +54,26 @@ class _MyAppState extends State<MyApp> {
         appBar: AppBar(
           title: Text("My first App"),
         ),
-        body: Column(
-          children: <Widget>[
-            Question(
-              questions[_questionIndex]["questionText"],
-            ),
-            ...(questions[_questionIndex]["answers"] as List<String>)
-                .map((answer) {
-              return Answer(_answerQuestion, answer);
-            }).toList()
-            // O .map vai passar pela minha lista de Strings "answers" e, pra cada String
-            // Ele vai criar um Widget "Answer" usando a string da outra lista
-            // e no final, retornar uma lista de widgets Answer, em que eu vou tirar cada
-            // um dos Widgets e colocar na lista de fora, que é a minha "Column"
-            // Assim, eu adiciono os valores de uma lista, em outra lista :o
-          ],
-        ),
+        body: _questionIndex < questions.length
+            ? Column(
+                children: <Widget>[
+                  Question(
+                    questions[_questionIndex]["questionText"],
+                  ),
+                  ...(questions[_questionIndex]["answers"] as List<String>)
+                      .map((answer) {
+                    return Answer(_answerQuestion, answer);
+                  }).toList()
+                  // O .map vai passar pela minha lista de Strings "answers" e, pra cada String
+                  // Ele vai criar um Widget "Answer" usando a string da outra lista
+                  // e no final, retornar uma lista de widgets Answer, em que eu vou tirar cada
+                  // um dos Widgets e colocar na lista de fora, que é a minha "Column"
+                  // Assim, eu adiciono os valores de uma lista, em outra lista :o
+                ],
+              )
+            : Center(
+                child: Text("YOU DID IT!!!"),
+              ),
       ),
     );
   }
